@@ -6,9 +6,7 @@
 package com.alloatech;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import me.xdrop.fuzzywuzzy.FuzzySearch;
 
 /**
@@ -17,6 +15,7 @@ import me.xdrop.fuzzywuzzy.FuzzySearch;
 public class ContactScrubber {
 
     public List<ScrubbingResult> scrub(List<Contact> list, ContactScrub scrub) {
+        analyzeContacts(list, scrub);
         List<ScrubbingResult> result = new ArrayList<>();
         // LOOP THROUGH THE LIST INCREMETALLY STEPPING DOWN THROUGH
         for (int i = 0; i < list.size(); i++) {
@@ -49,7 +48,6 @@ public class ContactScrubber {
         return curData;
     }
 
-    
     private ScrubbingResultData analyzeStrings(ScrubbingResultData curData, String curString, String nextString) {
         curData.setSimpleRatio(FuzzySearch.ratio(curString, nextString));
         curData.setPartialRatio(FuzzySearch.partialRatio(curString, nextString));
@@ -59,7 +57,26 @@ public class ContactScrubber {
         return curData;
     }
 
-    private ContactQuality analyzeContact(Contact curContact, ContactScrub scrub) {
-        return null;
+    private void analyzeContacts(List<Contact> list, ContactScrub scrub) {
+        for (Contact contact : list) {
+            ContactQuality conQual = new ContactQuality();
+            conQual.setScore(100);
+            if (contact.getName() == null || contact.getName().length() < 2) {
+                conQual.adjustScore(.75);
+                conQual.getIssues().add("Contact Name has low quality");
+            }
+            for (Address address : contact.getAddresses()) {
+                if (address.getAddress() == null || address.getAddress().trim().split(" ").length < 4) {
+                    conQual.adjustScore(.75);
+                    conQual.getIssues().add("Contact " + address.getType() + " has low quality.");
+                }
+            }
+            contact.setQuality(conQual);
+            if (conQual.getScore() <= 75) {
+                scrub.getBadContacts().add(contact);
+            }
+        }
+        // FILTER OUT 75 and below
+        list.stream().filter(c -> c.getQuality().getScore() <= 75);
     }
 }

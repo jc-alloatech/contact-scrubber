@@ -29,7 +29,6 @@ public class ProgramRunner {
         scrub.setCount(list.size());
         scrub.setResults(contactScrubber.scrub(list, scrub));
         System.out.println(scrub);
-        ;
     }
 
     private static void setUpFileConfigs(List<FileConfig> files) {

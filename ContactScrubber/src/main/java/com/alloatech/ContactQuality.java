@@ -15,6 +15,7 @@
  */
 package com.alloatech;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,6 +24,11 @@ import java.util.List;
 public class ContactQuality {
     private int score;
     private List<String> issues;
+    
+    
+    public ContactQuality() {
+        issues = new ArrayList<>();
+    }
     
     public int getScore() {
         return score;
@@ -43,5 +49,9 @@ public class ContactQuality {
     @Override
     public String toString() {
         return "ContactQuality [score=" + score + ", issues=" + issues + "]";
+    }
+
+    public void adjustScore(double adjustment) {
+        score *= adjustment;
     }
 }

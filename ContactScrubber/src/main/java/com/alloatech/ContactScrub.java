@@ -26,7 +26,7 @@ public class ContactScrub {
     private List<FileConfig> fileConfigs;
     private List<String> errors;
     private List<ScrubbingResult> results;
-    private List<BadContact> badContacts;
+    private List<Contact> badContacts;
     
     
     public ContactScrub() {
@@ -101,12 +101,12 @@ public class ContactScrub {
     }
 
     
-    public List<BadContact> getBadContacts() {
+    public List<Contact> getBadContacts() {
         return badContacts;
     }
 
     
-    public void setBadContacts(List<BadContact> badContacts) {
+    public void setBadContacts(List<Contact> badContacts) {
         this.badContacts = badContacts;
     }
 
