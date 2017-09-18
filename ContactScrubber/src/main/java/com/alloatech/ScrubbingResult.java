@@ -23,6 +23,7 @@ import java.util.List;
  */
 public class ScrubbingResult {
     private Contact contact;
+    private ContactQuality quality;
     private List<ScrubbingResultData> data = new ArrayList<>();
 
     @Override
@@ -44,6 +45,16 @@ public class ScrubbingResult {
 
     public void setData(List<ScrubbingResultData> data) {
         this.data = data;
+    }
+
+    
+    public ContactQuality getQuality() {
+        return quality;
+    }
+
+    
+    public void setQuality(ContactQuality quality) {
+        this.quality = quality;
     }
     
 }

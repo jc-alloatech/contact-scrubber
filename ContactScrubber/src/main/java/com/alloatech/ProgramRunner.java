@@ -19,19 +19,38 @@ public class ProgramRunner {
 
     public static void main(String[] args) {
         System.out.println(System.getProperty("user.dir"));
-        List<String> files = new ArrayList<>();
-        files.add(file1);
-        files.add(file2);
-        List<Contact> list = new ArrayList<Contact>();
-        
-        list = ContactFileReader.getContactsFromFile(file1);
-        list.addAll(ContactFileReader.getContactsFromFile(file2));
-        ContactScrubber contactScrubber = new ContactScrubber();
+        List<FileConfig> files = new ArrayList<>();
+        setUpFileConfigs(files);
         ContactScrub scrub = new ContactScrub();
-        scrub.setBadContacts(ContactScrubber.analyzeContacts());
+        List<Contact> list = new ArrayList<Contact>();
+        list = ContactFileReader.getContactsFromFiles(files, scrub);
+        ContactScrubber contactScrubber = new ContactScrubber();
         scrub.setCount(list.size());
-        scrub.setFiles(files);
-        scrub.setResults(contactScrubber.scrub(list));
-        System.out.println(scrub);;
+        scrub.setResults(contactScrubber.scrub(list, scrub));
+        System.out.println(scrub);
+        ;
+    }
+
+    private static void setUpFileConfigs(List<FileConfig> files) {
+        FileConfig fileConf1 = new FileConfig();
+        List<AddressConfig> addressConfigs = new ArrayList<>();
+        AddressConfig addConf = new AddressConfig();
+        addConf.setType(AddressType.SHIPPING);
+        addConf.setIndex(2);
+        addressConfigs.add(addConf);
+        fileConf1.setFileName(file1);
+        fileConf1.setAddressConfigs(addressConfigs);
+        files.add(fileConf1);
+        FileConfig fileConf2 = new FileConfig();
+        List<AddressConfig> addressConfigs2 = new ArrayList<>();
+        AddressConfig addConf2 = new AddressConfig();
+        addConf2.setType(AddressType.SHIPPING);
+        addConf2.setIndex(2);
+        addressConfigs2.add(addConf2);
+        AddressConfig addConf3 = new AddressConfig();
+        addConf3.setType(AddressType.BILLING);
+        addConf3.setIndex(3);
+        addressConfigs2.add(addConf3);
+        files.add(fileConf2);
     }
 }

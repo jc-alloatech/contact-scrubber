@@ -16,35 +16,48 @@ import me.xdrop.fuzzywuzzy.FuzzySearch;
  */
 public class ContactScrubber {
 
-    public List<ScrubbingResult> scrub(List<Contact> list) {
+    public List<ScrubbingResult> scrub(List<Contact> list, ContactScrub scrub) {
         List<ScrubbingResult> result = new ArrayList<>();
-        // NAME
-        list.stream().forEach((c) -> {
+        // LOOP THROUGH THE LIST INCREMETALLY STEPPING DOWN THROUGH
+        for (int i = 0; i < list.size(); i++) {
             ScrubbingResult curResult = new ScrubbingResult();
-            curResult.setContact(c);
-            list.stream().forEach(oc -> {
-                ResultKey curKey = new ResultKey(c.getId(), oc.getId());
-                ScrubbingResultData curData = new ScrubbingResultData();
-                curData.setFieldName("Name");
-                curData.setFieldValue(oc.getName());
-                curData.setSimpleRatio(FuzzySearch.ratio(c.getName(), oc.getName()));
-                curData.setPartialRatio(FuzzySearch.partialRatio(c.getName(), oc.getName()));
-                curData.setTokenSortRatio(FuzzySearch.tokenSortPartialRatio(c.getName(), oc.getName()));
-                curData.setTokenSetRatio(FuzzySearch.tokenSetPartialRatio(c.getName(), oc.getName()));
-                curData.setWeightedRation(FuzzySearch.weightedRatio(c.getName(), oc.getName()));
-                if (curKey != null && curResult != null) {
-                    result.add(curResult);
-                }
-            });
-        });
-        return filterResults(result);
-    }
-
-    private List<ScrubbingResult> filterResults(List<ScrubbingResult> result) {
+            Contact curContact = list.get(i);
+            curResult.setContact(curContact);
+            for (int j = i + 1; j < list.size(); j++) {
+                Contact nextContact = list.get(j);
+                curResult.getData().add(analyzeName(curContact, nextContact));
+            }
+        }
         return result;
     }
 
-    public static List<BadContact> analyzeContacts() {
-        return new ArrayList<>();
+    private ScrubbingResultData analyzeName(Contact curContact, Contact nextContact) {
+        ScrubbingResultData curData = new ScrubbingResultData();
+        curData.setFieldName("Name");
+        curData.setFieldValue(nextContact.getName());
+        analyzeStrings(curData, curContact.getName(), nextContact.getName());
+        return curData;
+    }
+
+    private ScrubbingResultData analyzeAddress(Contact curContact, Contact nextContact) {
+        ScrubbingResultData curData = new ScrubbingResultData();
+        curData.setFieldName("Address");
+        curData.setFieldValue(nextContact.getName());
+        analyzeStrings(curData, curContact.getName(), nextContact.getName());
+        return curData;
+    }
+
+    
+    private ScrubbingResultData analyzeStrings(ScrubbingResultData curData, String curString, String nextString) {
+        curData.setSimpleRatio(FuzzySearch.ratio(curString, nextString));
+        curData.setPartialRatio(FuzzySearch.partialRatio(curString, nextString));
+        curData.setTokenSortRatio(FuzzySearch.tokenSortPartialRatio(curString, nextString));
+        curData.setTokenSetRatio(FuzzySearch.tokenSetPartialRatio(curString, nextString));
+        curData.setWeightedRation(FuzzySearch.weightedRatio(curString, nextString));
+        return curData;
+    }
+
+    private ContactQuality analyzeContact(Contact curContact, ContactScrub scrub) {
+        return null;
     }
 }

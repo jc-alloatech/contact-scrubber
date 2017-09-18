@@ -9,34 +9,52 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ContactFileReader {
-	public static List<Contact> getContactsFromFile(String fileName) {
-		File file = new File(fileName);
-		BufferedReader reader = null;
 
-		List<Contact> list = new ArrayList<>();
-		try {
-			reader = new BufferedReader(new FileReader(file));
-			String text = null;
+    public static List<Contact> getContactsFromFile(FileConfig fileConfig, ContactScrub scrub) {
+        File file = new File(fileConfig.getFileName());
+        BufferedReader reader = null;
+        List<Contact> list = new ArrayList<>();
+        try {
+            reader = new BufferedReader(new FileReader(file));
+            scrub.getFiles().add(fileConfig.getFileName());
+            String text = null;
+            while ((text = reader.readLine()) != null) {
+                String[] chunk = text.split(",");
+                List<Address> addresses = new ArrayList<>();
+                for  (AddressConfig conf: fileConfig.getAddressConfigs()){
+                    Address curAddress = new Address();
+                    curAddress.setType(conf.getType());
+                    curAddress.setAddress(chunk[conf.getIndex()]);
+                    addresses.add(curAddress);
+                }
+                Contact curContact = new Contact(fileConfig + "::" + Integer.valueOf(chunk[0]), chunk[1], addresses);
+                list.add(curContact);
+            }
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+            scrub.getErrors().add(e.getLocalizedMessage());
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            scrub.getErrors().add(e.getLocalizedMessage());
+        }
+        finally {
+            try {
+                if (reader != null) {
+                    reader.close();
+                }
+            }
+            catch (IOException e) {}
+        }
+        return list;
+    }
 
-			while ((text = reader.readLine()) != null) {
-				String[] chunk = text.split(",");
-				Contact curContact = new Contact(fileName+"::"+Integer.valueOf(chunk[0]), chunk[1], chunk[2]);
-
-				list.add(curContact);
-			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (reader != null) {
-					reader.close();
-				}
-			} catch (IOException e) {
-			}
-		}
-		
-		return list;
-	}
+    public static List<Contact> getContactsFromFiles(List<FileConfig> files, ContactScrub scrub) {
+        List<Contact> result = new ArrayList<>();
+        for (FileConfig conf : files) {
+            result.addAll(getContactsFromFile(conf, scrub));
+        }
+        return result;
+    }
 }

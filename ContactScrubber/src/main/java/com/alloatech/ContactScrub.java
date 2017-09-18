@@ -23,6 +23,7 @@ import java.util.List;
 public class ContactScrub {
     private int count;
     private List<String> files;
+    private List<String> errors;
     private List<ScrubbingResult> results;
     private List<BadContact> badContacts;
     
@@ -98,5 +99,15 @@ public class ContactScrub {
     
     public void setBadContacts(List<BadContact> badContacts) {
         this.badContacts = badContacts;
+    }
+
+    
+    public List<String> getErrors() {
+        return errors;
+    }
+
+    
+    public void setErrors(List<String> errors) {
+        this.errors = errors;
     }
 }
