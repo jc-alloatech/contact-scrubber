@@ -27,7 +27,7 @@ public class ScrubbingResultData {
     public int partialRatio;
     public int tokenSortRatio;
     public int tokenSetRatio;
-    public int weightedRation;
+    public int weightedRatio;
 
     public ScrubbingResultData() {}
 
@@ -103,12 +103,12 @@ public class ScrubbingResultData {
 
     
     public int getWeightedRation() {
-        return weightedRation;
+        return weightedRatio;
     }
 
     
     public void setWeightedRation(int weightedRation) {
-        this.weightedRation = weightedRation;
+        this.weightedRatio = weightedRation;
     }
 
 
@@ -123,7 +123,7 @@ public class ScrubbingResultData {
         result = prime * result + simpleRatio;
         result = prime * result + tokenSetRatio;
         result = prime * result + tokenSortRatio;
-        result = prime * result + weightedRation;
+        result = prime * result + weightedRatio;
         return result;
     }
 
@@ -160,7 +160,7 @@ public class ScrubbingResultData {
             return false;
         if (tokenSortRatio != other.tokenSortRatio)
             return false;
-        if (weightedRation != other.weightedRation)
+        if (weightedRatio != other.weightedRatio)
             return false;
         return true;
     }
@@ -170,6 +170,6 @@ public class ScrubbingResultData {
     public String toString() {
         return "\n\t\tScrubbingResultData [key=" + key + ", fieldName=" + fieldName + ", fieldValue=" + fieldValue + ", simpleRatio="
                 + simpleRatio + ", partialRatio=" + partialRatio + ", tokenSortRatio=" + tokenSortRatio + ", tokenSetRatio="
-                + tokenSetRatio + ", weightedRation=" + weightedRation + "]";
+                + tokenSetRatio + ", weightedRatio=" + weightedRatio + "]";
     }
 }

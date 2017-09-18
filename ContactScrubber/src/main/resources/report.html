@@ -13,7 +13,7 @@
 <body>
 	<div class="jumbotron">
 		<h1 class="display-3">Contact Scrubber Report</h1>
-	<p class="lead">This report was run Sep 18, 2017 02:50</p>
+	<p class="lead">This report was run Sep 18, 2017 05:15</p>
 		<hr class="my-4">
 		<p class="lead">Report Statistics</p>
 
@@ -33,7 +33,7 @@
 						<tr>
 							<td>file1.csv</td>
 							<td class="text-center">2</td>
-							<td class="text-center">87.5% </td>
+							<td class="text-center">75.5% </td>
 							<td class="text-center">1</td>
 						</tr>
 						<tr>
@@ -52,43 +52,8 @@
 		</p>
 	</div>
 	<container id="details">
+	<p class="lead indented">Leading Hit Confidence Contacts (>79%)</p>
 		<div class="card-deck inset">
-			<div class="card">
-				<div class="card-block">
-<!-- Nav tabs -->
-<ul class="nav nav-tabs" role="tablist">
-  <li class="nav-item">
-    <a class="nav-link active" data-toggle="tab" href="#contactfile1_csv__32" role="tab">Contact</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#scrub-resultsfile1_csv__32" role="tab">Scrub Results</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#qualityfile1_csv__32" role="tab">Quality</a>
-  </li>
-</ul>				<div class="tab-content">
-				<div class="tab-pane active" id="contactfile1_csv__32" role="tabpanel">
-				<h4 class="card-title"> AlloaTech</h4>
-			<p class="card-text indented"> Quality Score:100<br/> Hit Confidence: 95</p>
-				<p class="card-text indented">SHIPPING Address:  North Olmsted Ohio 44070</p>
-
-				<p class="card-footer text-muted"> id:file1_csv__32</p>
-				</div>
-				<div class="tab-pane" id="scrub-resultsfile1_csv__32" role="tabpanel">
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item"> ID:file2.csv::132::Name: Alloa Tech Inc. - 80% Hit Ratio</li>
-						<li class="list-group-item"> ID:file2.csv::132::Address: 29275 Hastings Dr North Olmsted Ohio 44070 - 90% Hit Ratio</li>
-						<li class="list-group-item"> ID:file2.csv::132::Address: 29275 Hastings Dr North Olmsted Ohio 44070 - 90% Hit Ratio</li>
-						<li class="list-group-item"> ID:file2.csv::134::Name: Alloa Tech - 95% Hit Ratio</li>
-						<li class="list-group-item"> ID:file2.csv::134::Address: 29275 Hastings Dr North Olmsted Ohio 44070 - 90% Hit Ratio</li>
-						<li class="list-group-item"> ID:file2.csv::134::Address: 29275 Hastings Dr North Olmsted Ohio 44070 - 90% Hit Ratio</li>
-					</ul>
-				</div>
-				<div class="tab-pane" id="qualityfile1_csv__32" role="tabpanel">
-				</div>
-				</div>
-				</div>
-				</div>
 			<div class="card">
 				<div class="card-block">
 <!-- Nav tabs -->
@@ -105,7 +70,7 @@
 </ul>				<div class="tab-content">
 				<div class="tab-pane active" id="contactfile2_csv__132" role="tabpanel">
 				<h4 class="card-title"> Alloa Tech Inc.</h4>
-			<p class="card-text indented"> Quality Score:100<br/> Hit Confidence: 100</p>
+			<p class="card-text indented"> Data Quality Score: 100<br/> Hit Confidence: 100%</p>
 				<p class="card-text indented">SHIPPING Address:  29275 Hastings Dr North Olmsted Ohio 44070</p>
 				<p class="card-text indented">BILLING Address:  29275 Hastings Dr North Olmsted Ohio 44070</p>
 
@@ -113,17 +78,22 @@
 				</div>
 				<div class="tab-pane" id="scrub-resultsfile2_csv__132" role="tabpanel">
 					<ul class="list-group list-group-flush">
-						<li class="list-group-item"> ID:file1.csv::32::Name: AlloaTech - 80% Hit Ratio</li>
-						<li class="list-group-item"> ID:file1.csv::32::Address: North Olmsted Ohio 44070 - 90% Hit Ratio</li>
-						<li class="list-group-item"> ID:file1.csv::32::Address: North Olmsted Ohio 44070 - 90% Hit Ratio</li>
-						<li class="list-group-item"> ID:file2.csv::134::Name: Alloa Tech - 95% Hit Ratio</li>
-						<li class="list-group-item"> ID:file2.csv::134::Address: 29275 Hastings Dr North Olmsted Ohio 44070 - 100% Hit Ratio</li>
-						<li class="list-group-item"> ID:file2.csv::134::Address: 29275 Hastings Dr North Olmsted Ohio 44070 - 100% Hit Ratio</li>
-						<li class="list-group-item"> ID:file2.csv::134::Address: 29275 Hastings Dr North Olmsted Ohio 44070 - 100% Hit Ratio</li>
-						<li class="list-group-item"> ID:file2.csv::134::Address: 29275 Hastings Dr North Olmsted Ohio 44070 - 100% Hit Ratio</li>
+						<li class="list-group-item"> ID:file1.csv::32::Name: AlloaTech - 80% Hit Ratio (Weighted)</li>
+						<li class="list-group-item"> ID:file1.csv::32::Address: North Olmsted Ohio 44070 - 90% Hit Ratio (Weighted)</li>
+						<li class="list-group-item"> ID:file1.csv::32::Address: North Olmsted Ohio 44070 - 90% Hit Ratio (Weighted)</li>
+						<li class="list-group-item"> ID:file1.csv::33::Name: bad - 30% Hit Ratio (Weighted)</li>
+						<li class="list-group-item"> ID:file1.csv::33::Address: 22 H - 30% Hit Ratio (Weighted)</li>
+						<li class="list-group-item"> ID:file1.csv::33::Address: 22 H - 30% Hit Ratio (Weighted)</li>
+						<li class="list-group-item"> ID:file2.csv::134::Name: Alloa Tech - 95% Hit Ratio (Weighted)</li>
+						<li class="list-group-item"> ID:file2.csv::134::Address: 29275 Hastings Dr North Olmsted Ohio 44070 - 100% Hit Ratio (Weighted)</li>
+						<li class="list-group-item"> ID:file2.csv::134::Address: 29275 Hastings Dr North Olmsted Ohio 44070 - 100% Hit Ratio (Weighted)</li>
+						<li class="list-group-item"> ID:file2.csv::134::Address: 29275 Hastings Dr North Olmsted Ohio 44070 - 100% Hit Ratio (Weighted)</li>
+						<li class="list-group-item"> ID:file2.csv::134::Address: 29275 Hastings Dr North Olmsted Ohio 44070 - 100% Hit Ratio (Weighted)</li>
 					</ul>
 				</div>
 				<div class="tab-pane" id="qualityfile2_csv__132" role="tabpanel">
+					<ul class="list-group list-group-flush">
+					</ul>
 				</div>
 				</div>
 				</div>
@@ -144,7 +114,7 @@
 </ul>				<div class="tab-content">
 				<div class="tab-pane active" id="contactfile2_csv__134" role="tabpanel">
 				<h4 class="card-title"> Alloa Tech</h4>
-			<p class="card-text indented"> Quality Score:100<br/> Hit Confidence: 100</p>
+			<p class="card-text indented"> Data Quality Score: 100<br/> Hit Confidence: 100%</p>
 				<p class="card-text indented">SHIPPING Address:  29275 Hastings Dr North Olmsted Ohio 44070</p>
 				<p class="card-text indented">BILLING Address:  29275 Hastings Dr North Olmsted Ohio 44070</p>
 
@@ -152,17 +122,109 @@
 				</div>
 				<div class="tab-pane" id="scrub-resultsfile2_csv__134" role="tabpanel">
 					<ul class="list-group list-group-flush">
-						<li class="list-group-item"> ID:file1.csv::32::Name: AlloaTech - 95% Hit Ratio</li>
-						<li class="list-group-item"> ID:file1.csv::32::Address: North Olmsted Ohio 44070 - 90% Hit Ratio</li>
-						<li class="list-group-item"> ID:file1.csv::32::Address: North Olmsted Ohio 44070 - 90% Hit Ratio</li>
-						<li class="list-group-item"> ID:file2.csv::132::Name: Alloa Tech Inc. - 95% Hit Ratio</li>
-						<li class="list-group-item"> ID:file2.csv::132::Address: 29275 Hastings Dr North Olmsted Ohio 44070 - 100% Hit Ratio</li>
-						<li class="list-group-item"> ID:file2.csv::132::Address: 29275 Hastings Dr North Olmsted Ohio 44070 - 100% Hit Ratio</li>
-						<li class="list-group-item"> ID:file2.csv::132::Address: 29275 Hastings Dr North Olmsted Ohio 44070 - 100% Hit Ratio</li>
-						<li class="list-group-item"> ID:file2.csv::132::Address: 29275 Hastings Dr North Olmsted Ohio 44070 - 100% Hit Ratio</li>
+						<li class="list-group-item"> ID:file1.csv::32::Name: AlloaTech - 95% Hit Ratio (Weighted)</li>
+						<li class="list-group-item"> ID:file1.csv::32::Address: North Olmsted Ohio 44070 - 90% Hit Ratio (Weighted)</li>
+						<li class="list-group-item"> ID:file1.csv::32::Address: North Olmsted Ohio 44070 - 90% Hit Ratio (Weighted)</li>
+						<li class="list-group-item"> ID:file1.csv::33::Name: bad - 30% Hit Ratio (Weighted)</li>
+						<li class="list-group-item"> ID:file1.csv::33::Address: 22 H - 30% Hit Ratio (Weighted)</li>
+						<li class="list-group-item"> ID:file1.csv::33::Address: 22 H - 30% Hit Ratio (Weighted)</li>
+						<li class="list-group-item"> ID:file2.csv::132::Name: Alloa Tech Inc. - 95% Hit Ratio (Weighted)</li>
+						<li class="list-group-item"> ID:file2.csv::132::Address: 29275 Hastings Dr North Olmsted Ohio 44070 - 100% Hit Ratio (Weighted)</li>
+						<li class="list-group-item"> ID:file2.csv::132::Address: 29275 Hastings Dr North Olmsted Ohio 44070 - 100% Hit Ratio (Weighted)</li>
+						<li class="list-group-item"> ID:file2.csv::132::Address: 29275 Hastings Dr North Olmsted Ohio 44070 - 100% Hit Ratio (Weighted)</li>
+						<li class="list-group-item"> ID:file2.csv::132::Address: 29275 Hastings Dr North Olmsted Ohio 44070 - 100% Hit Ratio (Weighted)</li>
 					</ul>
 				</div>
 				<div class="tab-pane" id="qualityfile2_csv__134" role="tabpanel">
+					<ul class="list-group list-group-flush">
+					</ul>
+				</div>
+				</div>
+				</div>
+				</div>
+			<div class="card">
+				<div class="card-block">
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" data-toggle="tab" href="#contactfile1_csv__32" role="tab">Contact</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#scrub-resultsfile1_csv__32" role="tab">Scrub Results</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#qualityfile1_csv__32" role="tab">Quality</a>
+  </li>
+</ul>				<div class="tab-content">
+				<div class="tab-pane active" id="contactfile1_csv__32" role="tabpanel">
+				<h4 class="card-title"> AlloaTech</h4>
+			<p class="card-text indented"> Data Quality Score: 80<br/> Hit Confidence: 95%</p>
+				<p class="card-text indented">SHIPPING Address:  North Olmsted Ohio 44070</p>
+
+				<p class="card-footer text-muted"> id:file1_csv__32</p>
+				</div>
+				<div class="tab-pane" id="scrub-resultsfile1_csv__32" role="tabpanel">
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item"> ID:file1.csv::33::Name: bad - 30% Hit Ratio (Weighted)</li>
+						<li class="list-group-item"> ID:file1.csv::33::Address: 22 H - 45% Hit Ratio (Weighted)</li>
+						<li class="list-group-item"> ID:file2.csv::132::Name: Alloa Tech Inc. - 80% Hit Ratio (Weighted)</li>
+						<li class="list-group-item"> ID:file2.csv::132::Address: 29275 Hastings Dr North Olmsted Ohio 44070 - 90% Hit Ratio (Weighted)</li>
+						<li class="list-group-item"> ID:file2.csv::132::Address: 29275 Hastings Dr North Olmsted Ohio 44070 - 90% Hit Ratio (Weighted)</li>
+						<li class="list-group-item"> ID:file2.csv::134::Name: Alloa Tech - 95% Hit Ratio (Weighted)</li>
+						<li class="list-group-item"> ID:file2.csv::134::Address: 29275 Hastings Dr North Olmsted Ohio 44070 - 90% Hit Ratio (Weighted)</li>
+						<li class="list-group-item"> ID:file2.csv::134::Address: 29275 Hastings Dr North Olmsted Ohio 44070 - 90% Hit Ratio (Weighted)</li>
+					</ul>
+				</div>
+				<div class="tab-pane" id="qualityfile1_csv__32" role="tabpanel">
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">Contact Address [SHIPPING] has low quality.</li>
+					</ul>
+				</div>
+				</div>
+				</div>
+				</div>
+		</div>
+	</container>
+	<container id="details">
+	<p class="lead indented">Low Data Quality Contacts (<76)</p>
+		<div class="card-deck inset">
+			<div class="card">
+				<div class="card-block">
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" data-toggle="tab" href="#contactfile1_csv__33" role="tab">Contact</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#scrub-resultsfile1_csv__33" role="tab">Scrub Results</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#qualityfile1_csv__33" role="tab">Quality</a>
+  </li>
+</ul>				<div class="tab-content">
+				<div class="tab-pane active" id="contactfile1_csv__33" role="tabpanel">
+				<h4 class="card-title"> bad</h4>
+			<p class="card-text indented"> Data Quality Score: 71<br/> Hit Confidence: 45%</p>
+				<p class="card-text indented">SHIPPING Address:  22 H</p>
+
+				<p class="card-footer text-muted"> id:file1_csv__33</p>
+				</div>
+				<div class="tab-pane" id="scrub-resultsfile1_csv__33" role="tabpanel">
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item"> ID:file1.csv::32::Name: AlloaTech - 30% Hit Ratio (Weighted)</li>
+						<li class="list-group-item"> ID:file1.csv::32::Address: North Olmsted Ohio 44070 - 45% Hit Ratio (Weighted)</li>
+						<li class="list-group-item"> ID:file2.csv::132::Name: Alloa Tech Inc. - 30% Hit Ratio (Weighted)</li>
+						<li class="list-group-item"> ID:file2.csv::132::Address: 29275 Hastings Dr North Olmsted Ohio 44070 - 30% Hit Ratio (Weighted)</li>
+						<li class="list-group-item"> ID:file2.csv::132::Address: 29275 Hastings Dr North Olmsted Ohio 44070 - 30% Hit Ratio (Weighted)</li>
+						<li class="list-group-item"> ID:file2.csv::134::Name: Alloa Tech - 30% Hit Ratio (Weighted)</li>
+						<li class="list-group-item"> ID:file2.csv::134::Address: 29275 Hastings Dr North Olmsted Ohio 44070 - 30% Hit Ratio (Weighted)</li>
+						<li class="list-group-item"> ID:file2.csv::134::Address: 29275 Hastings Dr North Olmsted Ohio 44070 - 30% Hit Ratio (Weighted)</li>
+					</ul>
+				</div>
+				<div class="tab-pane" id="qualityfile1_csv__33" role="tabpanel">
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">Contact Address [SHIPPING] has low quality.</li>
+					</ul>
 				</div>
 				</div>
 				</div>

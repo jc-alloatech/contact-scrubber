@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  * @author cairn
@@ -31,6 +33,14 @@ public class ProgramRunner {
         ContactScrubber contactScrubber = new ContactScrubber();
         scrub.setCount(list.size());
         List<ScrubbingResult> scrubResult = contactScrubber.scrub(list, scrub);
+        scrubResult = scrubResult.stream().sorted(new Comparator<ScrubbingResult>() {
+
+            @Override
+            public int compare(ScrubbingResult o1, ScrubbingResult o2) {
+                return Integer.compare(o2.getData().stream().mapToInt(d -> d.weightedRatio).max().getAsInt(),
+                        o1.getData().stream().mapToInt(d -> d.weightedRatio).max().getAsInt());
+            }
+        }).collect(Collectors.toList());
         scrub.setResults(scrubResult);
         System.out.println(scrub);
         calculateStats(list, scrub);
@@ -43,7 +53,8 @@ public class ProgramRunner {
         for (FileConfig fConf : scrub.getFileConfigs()) {
             fConf.setContactQuality(list.stream().filter(c -> c.getId().contains(fConf.getFileName()))
                     .mapToInt(c -> c.getQuality().getScore()).average().getAsDouble());
-            fConf.setBadContactCount(scrub.getBadContacts().stream().filter(c -> c.getId().contains(fConf.getFileName())).count());
+            fConf.setBadContactCount(
+                    scrub.getBadContacts().stream().filter(c -> c.getId().contains(fConf.getFileName())).count());
         }
     }
 

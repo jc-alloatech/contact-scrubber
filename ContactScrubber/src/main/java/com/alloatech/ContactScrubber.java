@@ -84,9 +84,10 @@ public class ContactScrubber {
                 conQual.getIssues().add("Contact Name has low quality");
             }
             for (Address address : contact.getAddresses()) {
-                if (address.getAddress() == null || address.getAddress().trim().split(" ").length < 4) {
-                    conQual.adjustScore(.75);
-                    conQual.getIssues().add("Contact " + address.getType() + " has low quality.");
+                int numChunks = address.getAddress().trim().split(" ").length;
+                if (address.getAddress() == null || numChunks < 5) {
+                    conQual.adjustScore(.85 - (.35 * ((double) (5 - numChunks) / 8.0d)));
+                    conQual.getIssues().add("Contact Address [" + address.getType() + "] has low quality.");
                 }
             }
             contact.setQuality(conQual);
@@ -95,11 +96,11 @@ public class ContactScrubber {
             }
         }
         // FILTER OUT 75 and below
-        int preSize = list.size();
+     /*   int preSize = list.size();
         list = list.stream().filter(c -> c.getQuality().getScore() > 75).collect(Collectors.toList());
         int postSize = list.size();
         System.out.println("Bad Contact Count:" + scrub.getBadContacts().size());
         System.out.println("Filter Count:" + (preSize - postSize) + ", original size:" + preSize + ", post size:" + postSize);
-        return list;
+     */   return list;
     }
 }

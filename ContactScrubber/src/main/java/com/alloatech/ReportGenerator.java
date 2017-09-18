@@ -9,6 +9,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author thor
@@ -16,6 +18,8 @@ import java.io.IOException;
 public class ReportGenerator {
 
     private static final String HTML_FILE = "src\\main\\resources\\report.html";
+    private static final int HIT_RATIO_THRESHOLD = 80;
+    private static final int BAD_CONTACT_THRESHOLD = 75;
 
     public static void generateReport(ContactScrub scrub) {
         File file = new File(HTML_FILE);
@@ -53,7 +57,10 @@ public class ReportGenerator {
             writer.write("<body>");
             writer.newLine();
             generateReportHeader(writer, scrub);
-            generateReportDetails(writer, scrub);
+            List<ScrubbingResult> contactHits = scrub.getResults().stream().filter(r -> r.getData().stream().mapToInt(p -> p.weightedRatio).max().getAsInt() > HIT_RATIO_THRESHOLD).collect(Collectors.toList());
+            generateReportDetails(writer, contactHits, "Leading Hit Confidence Contacts (>" + (HIT_RATIO_THRESHOLD - 1) + "%)");
+            List<ScrubbingResult> badContacts = scrub.getResults().stream().filter(r -> r.getContact().getQuality().getScore() < BAD_CONTACT_THRESHOLD).collect(Collectors.toList());
+            generateReportDetails(writer, badContacts, "Low Data Quality Contacts (<" + (BAD_CONTACT_THRESHOLD + 1) + ")");
             writer.write("</body>");
             writer.newLine();
             writer.write("</html>");
@@ -156,14 +163,17 @@ public class ReportGenerator {
             e.printStackTrace();
         }
     }
+    
 
-    private static void generateReportDetails(BufferedWriter writer, ContactScrub scrub) {
+    private static void generateReportDetails(BufferedWriter writer, List<ScrubbingResult> scrubResults, String title) {
         try {
             writer.write("\t<container id=\"details\">");
             writer.newLine();
+            writer.write("\t<p class=\"lead indented\">" + title + "</p>");
+            writer.newLine();
             writer.write("\t\t<div class=\"card-deck inset\">");
             writer.newLine();
-            for (ScrubbingResult result : scrub.getResults()) {
+            for (ScrubbingResult result : scrubResults) {
                 writer.write("\t\t\t<div class=\"card\">");
                 writer.newLine();
                 writer.write("\t\t\t\t<div class=\"card-block\">");
@@ -182,13 +192,13 @@ public class ReportGenerator {
                 writer.newLine();
                 writer.write("\t\t\t\t<h4 class=\"card-title\">" + result.getContact().getName() + "</h4>");
                 writer.newLine();
-                writer.write("\t\t\t<p class=\"card-text indented\"> Quality Score:" + result.getContact().getQuality().getScore()
-                        + "<br/> Hit Confidence: " + result.getData().stream().mapToInt(d -> d.weightedRation).max().getAsInt()
-                        + "</p>");
+                writer.write("\t\t\t<p class=\"card-text indented\"> Data Quality Score: "
+                        + result.getContact().getQuality().getScore() + "<br/> Hit Confidence: "
+                        + result.getData().stream().mapToInt(d -> d.weightedRatio).max().getAsInt() + "%</p>");
                 writer.newLine();
                 for (Address address : result.getContact().getAddresses()) {
-                    writer.write(
-                            "\t\t\t\t<p class=\"card-text indented\">" + address.getType() + " Address: " + address.getAddress() + "</p>");
+                    writer.write("\t\t\t\t<p class=\"card-text indented\">" + address.getType() + " Address: "
+                            + address.getAddress() + "</p>");
                     writer.newLine();
                 }
                 writer.newLine();
@@ -202,7 +212,7 @@ public class ReportGenerator {
                 writer.newLine();
                 for (ScrubbingResultData data : result.getData()) {
                     writer.write("\t\t\t\t\t\t<li class=\"list-group-item\"> ID:" + data.key + "::" + data.fieldName + ":"
-                            + data.fieldValue + " - " + data.weightedRation + "% Hit Ratio</li>");
+                            + data.fieldValue + " - " + data.weightedRatio + "% Hit Ratio (Weighted)</li>");
                     writer.newLine();
                 }
                 writer.write("\t\t\t\t\t</ul>");
@@ -210,6 +220,14 @@ public class ReportGenerator {
                 writer.write("\t\t\t\t</div>");
                 writer.newLine();
                 writer.write("\t\t\t\t<div class=\"tab-pane\" id=\"quality" + id + "\" role=\"tabpanel\">");
+                writer.newLine();
+                writer.write("\t\t\t\t\t<ul class=\"list-group list-group-flush\">");
+                writer.newLine();
+                for (String data : result.getContact().getQuality().getIssues()) {
+                    writer.write("\t\t\t\t\t\t<li class=\"list-group-item\">" + data + "</li>");
+                    writer.newLine();
+                }
+                writer.write("\t\t\t\t\t</ul>");
                 writer.newLine();
                 writer.write("\t\t\t\t</div>");
                 writer.newLine();
@@ -226,7 +244,6 @@ public class ReportGenerator {
             writer.newLine();
         }
         catch (IOException e) {
-            scrub.getErrors().add(e.getLocalizedMessage());
             e.printStackTrace();
         }
     }
