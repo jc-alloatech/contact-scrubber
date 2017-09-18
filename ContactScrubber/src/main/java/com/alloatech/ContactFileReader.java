@@ -20,7 +20,7 @@ public class ContactFileReader {
 
 			while ((text = reader.readLine()) != null) {
 				String[] chunk = text.split(",");
-				Contact curContact = new Contact(Integer.valueOf(chunk[0]), chunk[1], chunk[2]);
+				Contact curContact = new Contact(fileName+"::"+Integer.valueOf(chunk[0]), chunk[1], chunk[2]);
 
 				list.add(curContact);
 			}
