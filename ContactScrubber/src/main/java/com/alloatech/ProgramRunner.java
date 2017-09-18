@@ -4,6 +4,8 @@
 package com.alloatech;
 
 import java.sql.ResultSet;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -18,6 +20,7 @@ public class ProgramRunner {
     private static final String file2 = "src\\\\main\\resources\\file2.csv";
 
     public static void main(String[] args) {
+        Instant start = Instant.now();
         System.out.println(System.getProperty("user.dir"));
         List<FileConfig> files = new ArrayList<>();
         setUpFileConfigs(files);
@@ -29,6 +32,9 @@ public class ProgramRunner {
         scrub.setCount(list.size());
         scrub.setResults(contactScrubber.scrub(list, scrub));
         System.out.println(scrub);
+        Instant stop = Instant.now();
+        scrub.setDuration(Duration.between(start, stop));
+        ReportGenerator.generateReport(scrub);
     }
 
     private static void setUpFileConfigs(List<FileConfig> files) {

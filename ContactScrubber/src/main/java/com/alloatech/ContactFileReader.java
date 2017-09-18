@@ -16,7 +16,7 @@ public class ContactFileReader {
         List<Contact> list = new ArrayList<>();
         try {
             reader = new BufferedReader(new FileReader(file));
-            scrub.getFiles().add(fileConfig);
+            scrub.getFileConfigs().add(fileConfig);
             String text = null;
             while ((text = reader.readLine()) != null) {
                 String[] chunk = text.split(",");
