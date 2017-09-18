@@ -1,0 +1,13 @@
+.table {
+	width: 50%;
+}
+.inset {
+	margin: 25px;
+}
+.indented {
+	margin-left: 25px;
+}
+
+.light-grey {
+	background-color: rgb(250,250,250);
+}

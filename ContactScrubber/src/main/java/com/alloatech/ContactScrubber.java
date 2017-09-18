@@ -7,6 +7,7 @@ package com.alloatech;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import me.xdrop.fuzzywuzzy.FuzzySearch;
 
 /**
@@ -15,19 +16,23 @@ import me.xdrop.fuzzywuzzy.FuzzySearch;
 public class ContactScrubber {
 
     public List<ScrubbingResult> scrub(List<Contact> list, ContactScrub scrub) {
-        analyzeContacts(list, scrub);
+        System.out.println("Incoming size:" + list.size());
+        list = analyzeContacts(list, scrub);
+        System.out.println("Post Analyzed size:" + list.size());
         List<ScrubbingResult> result = new ArrayList<>();
         // LOOP THROUGH THE LIST INCREMETALLY STEPPING DOWN THROUGH
         for (int i = 0; i < list.size(); i++) {
             ScrubbingResult curResult = new ScrubbingResult();
             Contact curContact = list.get(i);
             curResult.setContact(curContact);
-            for (int j = i + 1; j < list.size(); j++) {
+            for (int j = 0; j < list.size(); j++) {
                 Contact nextContact = list.get(j);
-                curResult.getData().add(analyzeName(curContact, nextContact));
-                curResult.getData().addAll(analyzeAddresses(curContact, nextContact));
-                result.add(curResult);
+                if (!curContact.getId().equals(nextContact.getId())) {
+                    curResult.getData().add(analyzeName(curContact, nextContact));
+                    curResult.getData().addAll(analyzeAddresses(curContact, nextContact));
+                }
             }
+            result.add(curResult);
         }
         return result;
     }
@@ -70,7 +75,7 @@ public class ContactScrubber {
         return curData;
     }
 
-    private void analyzeContacts(List<Contact> list, ContactScrub scrub) {
+    private List<Contact> analyzeContacts(List<Contact> list, ContactScrub scrub) {
         for (Contact contact : list) {
             ContactQuality conQual = new ContactQuality();
             conQual.setScore(100);
@@ -90,6 +95,11 @@ public class ContactScrubber {
             }
         }
         // FILTER OUT 75 and below
-        list.stream().filter(c -> c.getQuality().getScore() <= 75);
+        int preSize = list.size();
+        list = list.stream().filter(c -> c.getQuality().getScore() > 75).collect(Collectors.toList());
+        int postSize = list.size();
+        System.out.println("Bad Contact Count:" + scrub.getBadContacts().size());
+        System.out.println("Filter Count:" + (preSize - postSize) + ", original size:" + preSize + ", post size:" + postSize);
+        return list;
     }
 }

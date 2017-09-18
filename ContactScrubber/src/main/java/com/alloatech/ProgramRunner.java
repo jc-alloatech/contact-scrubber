@@ -30,7 +30,8 @@ public class ProgramRunner {
         list = ContactFileReader.getContactsFromFiles(files, scrub);
         ContactScrubber contactScrubber = new ContactScrubber();
         scrub.setCount(list.size());
-        scrub.setResults(contactScrubber.scrub(list, scrub));
+        List<ScrubbingResult> scrubResult = contactScrubber.scrub(list, scrub);
+        scrub.setResults(scrubResult);
         System.out.println(scrub);
         calculateStats(list, scrub);
         Instant stop = Instant.now();
