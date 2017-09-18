@@ -25,6 +25,7 @@ public class ContactScrubber {
             for (int j = i + 1; j < list.size(); j++) {
                 Contact nextContact = list.get(j);
                 curResult.getData().add(analyzeName(curContact, nextContact));
+                curResult.getData().addAll(analyzeAddresses(curContact, nextContact));
                 result.add(curResult);
             }
         }
@@ -40,11 +41,23 @@ public class ContactScrubber {
         return curData;
     }
 
-    private ScrubbingResultData analyzeAddress(Contact curContact, Contact nextContact) {
+    private List<ScrubbingResultData> analyzeAddresses(Contact curContact, Contact nextContact) {
+        List<ScrubbingResultData> result = new ArrayList<>();
+        for (Address curAddress : curContact.getAddresses()) {
+            for (Address nextAddress : nextContact.getAddresses()) {
+                ScrubbingResultData data = analyzeAddress(curAddress, nextAddress);
+                data.setKey(nextContact.getId());
+                result.add(data);
+            }
+        }
+        return result;
+    }
+
+    private ScrubbingResultData analyzeAddress(Address curAddress, Address nextAddress) {
         ScrubbingResultData curData = new ScrubbingResultData();
         curData.setFieldName("Address");
-        curData.setFieldValue(nextContact.getName());
-        analyzeStrings(curData, curContact.getName(), nextContact.getName());
+        curData.setFieldValue(nextAddress.getAddress());
+        analyzeStrings(curData, curAddress.getAddress(), nextAddress.getAddress());
         return curData;
     }
 
