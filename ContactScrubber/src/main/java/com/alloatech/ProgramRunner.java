@@ -32,9 +32,18 @@ public class ProgramRunner {
         scrub.setCount(list.size());
         scrub.setResults(contactScrubber.scrub(list, scrub));
         System.out.println(scrub);
+        calculateStats(list, scrub);
         Instant stop = Instant.now();
         scrub.setDuration(Duration.between(start, stop));
         ReportGenerator.generateReport(scrub);
+    }
+
+    private static void calculateStats(List<Contact> list, ContactScrub scrub) {
+        for (FileConfig fConf : scrub.getFileConfigs()) {
+            fConf.setContactQuality(list.stream().filter(c -> c.getId().contains(fConf.getFileName()))
+                    .mapToInt(c -> c.getQuality().getScore()).average().getAsDouble());
+            fConf.setBadContactCount(scrub.getBadContacts().stream().filter(c -> c.getId().contains(fConf.getFileName())).count());
+        }
     }
 
     private static void setUpFileConfigs(List<FileConfig> files) {
@@ -44,12 +53,12 @@ public class ProgramRunner {
         addConf.setType(AddressType.SHIPPING);
         addConf.setIndex(2);
         addressConfigs.add(addConf);
-        fileConf1.setFileName(file1);
+        fileConf1.setFileWithPath(file1);
         fileConf1.setAddressConfigs(addressConfigs);
         files.add(fileConf1);
         // FILE 2
         FileConfig fileConf2 = new FileConfig();
-        fileConf2.setFileName(file2);
+        fileConf2.setFileWithPath(file2);
         List<AddressConfig> addressConfigs2 = new ArrayList<>();
         AddressConfig addConf2 = new AddressConfig();
         addConf2.setType(AddressType.SHIPPING);

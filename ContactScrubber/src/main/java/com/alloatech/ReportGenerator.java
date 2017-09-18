@@ -91,7 +91,7 @@ public class ReportGenerator {
             writer.newLine();
             writer.write("\t\t\t<p>Files Processed</p>");
             writer.newLine();
-            writer.write("\t\t\t\t<table class=\"table\">");
+            writer.write("\t\t\t\t<table class=\"table table-striped table-bordered table-hover\">");
             writer.newLine();
             writer.write("\t\t\t\t\t<thead>");
             writer.newLine();
@@ -99,11 +99,37 @@ public class ReportGenerator {
             writer.newLine();
             writer.write("\t\t\t\t\t\t\t<th>Name</th>");
             writer.newLine();
-            writer.write("\t\t\t\t\t\t\t<th>Contact Count</th>");
+            writer.write("\t\t\t\t\t\t\t<th class=\"text-center\">Contact Count</th>");
             writer.newLine();
-            writer.write("\t\t\t\t\t\t\t<th>Contact Quality Avg</th>");
+            writer.write("\t\t\t\t\t\t\t<th class=\"text-center\">Contact Quality (Avg)</th>");
+            writer.newLine();
+            writer.write("\t\t\t\t\t\t\t<th class=\"text-center\">Bad Contact Count</th>");
             writer.newLine();
             writer.write("\t\t\t\t\t\t</tr>");
+            writer.newLine();
+            writer.write("\t\t\t\t\t</thead>");
+            writer.newLine();
+            writer.write("\t\t\t\t\t<tbody>");
+            writer.newLine();
+            for(FileConfig fConf : scrub.getFileConfigs()) {
+                writer.write("\t\t\t\t\t\t<tr>");
+                writer.newLine();
+                writer.write("\t\t\t\t\t\t\t<td>" + fConf.getFileName() + "</td>");
+                writer.newLine();
+                writer.write("\t\t\t\t\t\t\t<td class=\"text-center\">" + fConf.getContactCount() + "</td>");
+                writer.newLine();
+                writer.write("\t\t\t\t\t\t\t<td class=\"text-center\">" + fConf.getContactQuality() + "% </td>");
+                writer.newLine();                
+                writer.write("\t\t\t\t\t\t\t<td class=\"text-center\">" + fConf.getBadContactCount() + "</td>");
+                writer.newLine();                
+                writer.write("\t\t\t\t\t\t</tr>");
+                writer.newLine();
+            }
+            writer.write("\t\t\t\t\t\t</tr>");
+            writer.newLine();
+            writer.write("\t\t\t\t\t</tbody>");
+            writer.newLine();
+            writer.write("\t\t\t\t</table>");
             writer.newLine();
             writer.write("\t\t<p class=\"lead\">");
             writer.newLine();

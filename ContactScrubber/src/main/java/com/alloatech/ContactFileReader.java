@@ -11,7 +11,8 @@ import java.util.List;
 public class ContactFileReader {
 
     public static List<Contact> getContactsFromFile(FileConfig fileConfig, ContactScrub scrub) {
-        File file = new File(fileConfig.getFileName());
+        File file = new File(fileConfig.getFileWithPath());
+        fileConfig.setFileName(file.getName());
         BufferedReader reader = null;
         List<Contact> list = new ArrayList<>();
         try {
@@ -27,7 +28,7 @@ public class ContactFileReader {
                     curAddress.setAddress(chunk[conf.getIndex()]);
                     addresses.add(curAddress);
                 }
-                Contact curContact = new Contact(file.getName() + "::" + Integer.valueOf(chunk[0]), chunk[1], addresses);
+                Contact curContact = new Contact(fileConfig.getFileName() + "::" + Integer.valueOf(chunk[0]), chunk[1], addresses);
                 list.add(curContact);
             }
         }
@@ -47,6 +48,7 @@ public class ContactFileReader {
             }
             catch (IOException e) {}
         }
+        fileConfig.setContactCount(list.size());
         return list;
     }
 

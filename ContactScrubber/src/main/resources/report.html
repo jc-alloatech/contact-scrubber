@@ -11,19 +11,37 @@
 <body>
 	<div class="jumbotron">
 		<h1 class="display-3">Contact Scrubber Report</h1>
-	<p class="lead">This report was run at Sep 18, 2017 09:48</p>
+	<p class="lead">This report was run at Sep 18, 2017 10:34</p>
 		<hr class="my-4">
 		<p class="lead">Report Statistics</p>
 
 			<p>Execution Duration: 0:00:000</p>
 			<p>Files Processed</p>
-				<table class="table">
+				<table class="table table-striped table-bordered table-hover">
 					<thead>
 						<tr>
 							<th>Name</th>
-							<th>Contact Count</th>
-							<th>Contact Quality Avg</th>
+							<th class="text-center">Contact Count</th>
+							<th class="text-center">Contact Quality (Avg)</th>
+							<th class="text-center">Bad Contact Count</th>
 						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>file1.csv</td>
+							<td class="text-center">2</td>
+							<td class="text-center">87.5% </td>
+							<td class="text-center">1</td>
+						</tr>
+						<tr>
+							<td>file2.csv</td>
+							<td class="text-center">2</td>
+							<td class="text-center">100.0% </td>
+							<td class="text-center">0</td>
+						</tr>
+						</tr>
+					</tbody>
+				</table>
 		<p class="lead">
 			<a class="btn btn-primary btn-lg" href="#" role="button">Details</a>
 		</p>
