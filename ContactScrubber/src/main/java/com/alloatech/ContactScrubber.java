@@ -26,6 +26,7 @@ public class ContactScrubber {
             for (int j = i + 1; j < list.size(); j++) {
                 Contact nextContact = list.get(j);
                 curResult.getData().add(analyzeName(curContact, nextContact));
+                result.add(curResult);
             }
         }
         return result;
@@ -33,6 +34,7 @@ public class ContactScrubber {
 
     private ScrubbingResultData analyzeName(Contact curContact, Contact nextContact) {
         ScrubbingResultData curData = new ScrubbingResultData();
+        curData.setKey(nextContact.getId());
         curData.setFieldName("Name");
         curData.setFieldValue(nextContact.getName());
         analyzeStrings(curData, curContact.getName(), nextContact.getName());

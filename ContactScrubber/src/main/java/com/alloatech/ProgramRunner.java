@@ -21,6 +21,7 @@ public class ProgramRunner {
         System.out.println(System.getProperty("user.dir"));
         List<FileConfig> files = new ArrayList<>();
         setUpFileConfigs(files);
+        System.out.println("Processing: " + files);
         ContactScrub scrub = new ContactScrub();
         List<Contact> list = new ArrayList<Contact>();
         list = ContactFileReader.getContactsFromFiles(files, scrub);
@@ -41,7 +42,9 @@ public class ProgramRunner {
         fileConf1.setFileName(file1);
         fileConf1.setAddressConfigs(addressConfigs);
         files.add(fileConf1);
+        // FILE 2
         FileConfig fileConf2 = new FileConfig();
+        fileConf2.setFileName(file2);
         List<AddressConfig> addressConfigs2 = new ArrayList<>();
         AddressConfig addConf2 = new AddressConfig();
         addConf2.setType(AddressType.SHIPPING);
@@ -51,6 +54,7 @@ public class ProgramRunner {
         addConf3.setType(AddressType.BILLING);
         addConf3.setIndex(3);
         addressConfigs2.add(addConf3);
+        fileConf2.setAddressConfigs(addressConfigs2);
         files.add(fileConf2);
     }
 }

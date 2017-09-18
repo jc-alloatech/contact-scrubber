@@ -28,7 +28,7 @@ public class ScrubbingResult {
 
     @Override
     public String toString() {
-        return "ScrubbingResult [contact=" + contact + ", data=" + data + "]";
+        return "\nScrubbingResult [contact=" + contact + ", data=" + data + "]";
     }
 
     public Contact getContact() {

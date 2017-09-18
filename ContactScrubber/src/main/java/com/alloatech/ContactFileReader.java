@@ -16,7 +16,7 @@ public class ContactFileReader {
         List<Contact> list = new ArrayList<>();
         try {
             reader = new BufferedReader(new FileReader(file));
-            scrub.getFiles().add(fileConfig.getFileName());
+            scrub.getFiles().add(fileConfig);
             String text = null;
             while ((text = reader.readLine()) != null) {
                 String[] chunk = text.split(",");
@@ -27,7 +27,7 @@ public class ContactFileReader {
                     curAddress.setAddress(chunk[conf.getIndex()]);
                     addresses.add(curAddress);
                 }
-                Contact curContact = new Contact(fileConfig + "::" + Integer.valueOf(chunk[0]), chunk[1], addresses);
+                Contact curContact = new Contact(file.getName() + "::" + Integer.valueOf(chunk[0]), chunk[1], addresses);
                 list.add(curContact);
             }
         }

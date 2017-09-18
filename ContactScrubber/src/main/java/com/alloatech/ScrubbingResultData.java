@@ -20,7 +20,7 @@ package com.alloatech;
  */
 public class ScrubbingResultData {
 
-    public int key;
+    public String key;
     public String fieldName;
     public String fieldValue;
     public int simpleRatio;
@@ -32,12 +32,12 @@ public class ScrubbingResultData {
     public ScrubbingResultData() {}
 
     
-    public int getKey() {
+    public String getKey() {
         return key;
     }
 
     
-    public void setKey(int key) {
+    public void setKey(String key) {
         this.key = key;
     }
 
@@ -118,7 +118,7 @@ public class ScrubbingResultData {
         int result = 1;
         result = prime * result + ((fieldName == null) ? 0 : fieldName.hashCode());
         result = prime * result + ((fieldValue == null) ? 0 : fieldValue.hashCode());
-        result = prime * result + key;
+        result = prime * result + ((key == null) ? 0 : key.hashCode());
         result = prime * result + partialRatio;
         result = prime * result + simpleRatio;
         result = prime * result + tokenSetRatio;
@@ -147,7 +147,10 @@ public class ScrubbingResultData {
                 return false;
         } else if (!fieldValue.equals(other.fieldValue))
             return false;
-        if (key != other.key)
+        if (key == null) {
+            if (other.key != null)
+                return false;
+        } else if (!key.equals(other.key))
             return false;
         if (partialRatio != other.partialRatio)
             return false;
@@ -165,7 +168,7 @@ public class ScrubbingResultData {
 
     @Override
     public String toString() {
-        return "ScrubbingResultData [key=" + key + ", fieldName=" + fieldName + ", fieldValue=" + fieldValue + ", simpleRatio="
+        return "\n\t\tScrubbingResultData [key=" + key + ", fieldName=" + fieldName + ", fieldValue=" + fieldValue + ", simpleRatio="
                 + simpleRatio + ", partialRatio=" + partialRatio + ", tokenSortRatio=" + tokenSortRatio + ", tokenSetRatio="
                 + tokenSetRatio + ", weightedRation=" + weightedRation + "]";
     }

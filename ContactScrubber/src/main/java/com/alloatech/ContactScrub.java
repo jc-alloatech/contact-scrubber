@@ -15,6 +15,7 @@
  */
 package com.alloatech;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,10 +23,18 @@ import java.util.List;
  */
 public class ContactScrub {
     private int count;
-    private List<String> files;
+    private List<FileConfig> fileConfigs;
     private List<String> errors;
     private List<ScrubbingResult> results;
     private List<BadContact> badContacts;
+    
+    
+    public ContactScrub() {
+        fileConfigs = new ArrayList<>();
+        errors = new ArrayList<>();
+        results = new ArrayList<>();
+        badContacts = new ArrayList<>();
+    }
     
     public int getCount() {
         return count;
@@ -35,12 +44,12 @@ public class ContactScrub {
         this.count = count;
     }
     
-    public List<String> getFiles() {
-        return files;
+    public List<FileConfig> getFiles() {
+        return fileConfigs;
     }
     
-    public void setFiles(List<String> files) {
-        this.files = files;
+    public void setFiles(List<FileConfig> files) {
+        this.fileConfigs = files;
     }
     
     public List<ScrubbingResult> getResults() {
@@ -53,7 +62,7 @@ public class ContactScrub {
 
     @Override
     public String toString() {
-        return "ContactScrub [count=" + count + ", files=" + files + ", results=" + results + ", badContacts=" + badContacts
+        return "ContactScrub [count=" + count + ", files=" + fileConfigs + ", results=" + results + ", badContacts=" + badContacts
                 + "]";
     }
 
@@ -62,7 +71,7 @@ public class ContactScrub {
         final int prime = 31;
         int result = 1;
         result = prime * result + count;
-        result = prime * result + ((files == null) ? 0 : files.hashCode());
+        result = prime * result + ((fileConfigs == null) ? 0 : fileConfigs.hashCode());
         result = prime * result + ((results == null) ? 0 : results.hashCode());
         return result;
     }
@@ -78,10 +87,10 @@ public class ContactScrub {
         ContactScrub other = (ContactScrub) obj;
         if (count != other.count)
             return false;
-        if (files == null) {
-            if (other.files != null)
+        if (fileConfigs == null) {
+            if (other.fileConfigs != null)
                 return false;
-        } else if (!files.equals(other.files))
+        } else if (!fileConfigs.equals(other.fileConfigs))
             return false;
         if (results == null) {
             if (other.results != null)
